@@ -27,6 +27,8 @@
  */
 import { render } from 'solid-js/web';
 
+import 'sanitize.css';
+
 import { Test } from './components/Test';
 
 import './index.css';

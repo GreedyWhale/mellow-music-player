@@ -3,7 +3,7 @@
  * @Author: MADAO
  * @Date: 2023-02-24 15:12:21
  * @LastEditors: MADAO
- * @LastEditTime: 2023-03-02 10:46:47
+ * @LastEditTime: 2023-03-02 11:27:50
  */
 import type { Configuration } from 'webpack';
 
@@ -14,7 +14,7 @@ import { plugins } from './webpack.plugins';
 
 rules.push({
   test: /\.css$/,
-  use: [{ loader: 'style-loader' }, { loader: 'css-loader' }],
+  use: [{ loader: 'style-loader' }, { loader: 'css-loader' }, { loader: 'postcss-loader' }],
 });
 
 export const rendererConfig: Configuration = {

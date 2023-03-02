@@ -1,3 +1,10 @@
+/*
+ * @Description: https://www.electronforge.io/
+ * @Author: MADAO
+ * @Date: 2023-02-24 15:12:21
+ * @LastEditors: MADAO
+ * @LastEditTime: 2023-03-02 11:03:22
+ */
 import type { ForgeConfig } from '@electron-forge/shared-types';
 import { MakerSquirrel } from '@electron-forge/maker-squirrel';
 import { MakerZIP } from '@electron-forge/maker-zip';
@@ -20,7 +27,7 @@ const config: ForgeConfig = {
         entryPoints: [
           {
             html: './src/index.html',
-            js: './src/renderer.ts',
+            js: './src/renderer.tsx',
             name: 'main_window',
             preload: {
               js: './src/preload.ts',

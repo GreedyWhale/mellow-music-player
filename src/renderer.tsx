@@ -25,7 +25,12 @@
  *  });
  * ```
  */
+import { render } from 'solid-js/web';
+
+import { Test } from './components/Test';
 
 import './index.css';
 
 console.log('👋 This message is being logged by "renderer.js", included via webpack');
+
+render(() => <Test name='test' />, document.getElementById('app'))

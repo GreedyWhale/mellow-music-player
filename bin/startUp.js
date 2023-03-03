@@ -3,21 +3,24 @@
  * @Author: MADAO
  * @Date: 2023-03-03 14:37:31
  * @LastEditors: MADAO
- * @LastEditTime: 2023-03-03 15:21:56
+ * @LastEditTime: 2023-03-03 15:48:16
  */
 const { spawn } = require('child_process');
+const { createServer, build, createLogger } = require('vite');
 const path = require('path');
-const { createServer, build } = require('vite');
 const electronPath = require('electron');
+const colors = require('picocolors');
 
+const logger = createLogger('info');
 let electronMainProcess = null;
 
+
 const main = async () => {
-  // 启动渲染进程
+  logger.info(colors.green('启动renderer进程开发服务器'));
   const server = await createServer({ configFile: path.join(__dirname, '../vite.renderer.config.ts') });
   await server.listen();
 
-  // 构建渲染进程文件
+  logger.info(colors.green('构建preload.js文件'));
   await build({
     configFile: path.join(__dirname, '../vite.preload.config.ts'),
     build: {
@@ -27,13 +30,14 @@ const main = async () => {
       {
         name: 'vite-plugin-electron-hmr',
         closeBundle: () => {
+          logger.info(colors.green('preload.js文件构建完成'));
           server.ws.send({ type: 'full-reload' });
         }
       }
     ]
   });
 
-  // 构建主进程文件
+  logger.info(colors.green('构建main进程文件'));
   build({
     configFile: path.join(__dirname, '../vite.main.config.ts'),
     build: {
@@ -47,6 +51,7 @@ const main = async () => {
             electronMainProcess.kill();
           }
 
+          logger.info(colors.green('main进程文件构建完成'));
           electronMainProcess = spawn(electronPath, ['.'], { stdio: 'inherit' });
         }
       }

@@ -5,7 +5,11 @@
   "main": "dist/main/index.js",
   "scripts": {
     "dev": "node ./bin/startUp.js",
-    "build": "vite build",
+    "build:main": "vite build -c ./vite.main.config.ts",
+    "build:renderer": "vite build -c ./vite.renderer.config.ts",
+    "build:preload": "vite build -c ./vite.preload.config.ts",
+    "build": "run-p build:main build:renderer build:preload",
+    "dist": "run-s build package",
     "serve": "vite preview",
     "package": "electron-forge package",
     "make": "electron-forge make"
@@ -19,12 +23,14 @@
     "@electron-forge/maker-zip": "^6.0.5",
     "@types/node": "^18.14.4",
     "electron": "^23.1.1",
+    "npm-run-all": "^4.1.5",
     "picocolors": "^1.0.0",
     "typescript": "^4.9.5",
     "vite": "^4.1.1",
     "vite-plugin-solid": "^2.5.0"
   },
   "dependencies": {
+    "@solidjs/router": "^0.8.1",
     "electron-squirrel-startup": "^1.0.0",
     "solid-js": "^1.6.10"
   }

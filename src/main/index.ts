@@ -3,7 +3,7 @@
  * @Author: MADAO
  * @Date: 2023-03-03 10:29:26
  * @LastEditors: MADAO
- * @LastEditTime: 2023-03-03 15:27:55
+ * @LastEditTime: 2023-03-25 15:26:32
  */
 import { app, BrowserWindow } from 'electron';
 import path from 'path';
@@ -31,7 +31,6 @@ const createWindow = (): void => {
 };
 
 app.on('ready', createWindow);
-
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {

@@ -3,7 +3,7 @@
  * @Author: MADAO
  * @Date: 2023-03-03 14:37:31
  * @LastEditors: MADAO
- * @LastEditTime: 2023-03-03 15:48:16
+ * @LastEditTime: 2023-03-25 15:46:07
  */
 const { spawn } = require('child_process');
 const { createServer, build, createLogger } = require('vite');
@@ -17,7 +17,10 @@ let electronMainProcess = null;
 
 const main = async () => {
   logger.info(colors.green('启动renderer进程开发服务器'));
-  const server = await createServer({ configFile: path.join(__dirname, '../vite.renderer.config.ts') });
+  const server = await createServer({
+    mode: 'development',
+    configFile: path.join(__dirname, '../vite.renderer.config.ts'),
+  });
   await server.listen();
 
   logger.info(colors.green('构建preload.js文件'));

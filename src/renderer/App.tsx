@@ -1,5 +1,7 @@
 import type { Component } from 'solid-js';
 
+import { Routes, Route, A } from "@solidjs/router"
+
 import logo from './logo.svg';
 import styles from './App.module.css';
 
@@ -20,6 +22,18 @@ const App: Component = () => {
           Learn Solid
         </a>
       </header>
+
+      <nav>
+        <A href="/about">About</A>
+        <A href="/">Home</A>
+        <A href="/users">User</A>
+      </nav>
+
+      <Routes>
+        <Route path="/users" element={<div>users</div>} />
+        <Route path="/" element={<div>home</div>} />
+        <Route path="/about" element={<div>This site was made with Solid</div>} />
+      </Routes>
     </div>
   );
 };

@@ -23,6 +23,8 @@ const App: Component = () => {
         </a>
       </header>
 
+      <p class='text-base text-red-600'>测试tailwind css</p>
+
       <nav>
         <A href="/about">About</A>
         <A href="/">Home</A>

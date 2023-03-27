@@ -3,7 +3,7 @@
  * @Author: MADAO
  * @Date: 2023-03-03 10:29:26
  * @LastEditors: MADAO
- * @LastEditTime: 2023-03-27 15:26:06
+ * @LastEditTime: 2023-03-27 15:40:16
  */
 import { app, BrowserWindow } from 'electron';
 import path from 'path';
@@ -16,7 +16,6 @@ const createWindow = (): void => {
   const mainWindow = new BrowserWindow({
     height: 800,
     width: 400,
-    frame: false,
     useContentSize: true,
     resizable: false,
     webPreferences: {

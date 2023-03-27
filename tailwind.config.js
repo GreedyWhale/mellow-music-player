@@ -3,7 +3,7 @@
  * @Author: MADAO
  * @Date: 2023-03-25 16:09:46
  * @LastEditors: MADAO
- * @LastEditTime: 2023-03-27 15:25:57
+ * @LastEditTime: 2023-03-27 20:56:12
  */
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -11,7 +11,11 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'gradient-radial-tl': 'radial-gradient(circle at top left, var(--tw-gradient-stops))',
+      }
+    },
   },
   plugins: [],
 };

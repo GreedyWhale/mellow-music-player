@@ -3,15 +3,20 @@
  * @Author: MADAO
  * @Date: 2023-03-03 10:20:10
  * @LastEditors: MADAO
- * @LastEditTime: 2023-03-03 15:29:49
+ * @LastEditTime: 2023-03-27 15:26:13
  */
 import { defineConfig } from 'vite';
-import { builtinModules } from 'node:module'
+import { builtinModules } from 'node:module';
 import path from 'path';
 
 /** @type {import('vite').UserConfig} */
 export default defineConfig({
   root: path.join(__dirname, '/src/main'),
+  resolve: {
+    alias: {
+      '~': path.join(__dirname, './src')
+    }
+  },
   build: {
     outDir: path.join(__dirname, '/dist/main'),
     emptyOutDir: true,

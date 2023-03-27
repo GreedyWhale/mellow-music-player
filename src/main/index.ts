@@ -3,7 +3,7 @@
  * @Author: MADAO
  * @Date: 2023-03-03 10:29:26
  * @LastEditors: MADAO
- * @LastEditTime: 2023-03-25 15:26:32
+ * @LastEditTime: 2023-03-27 15:26:06
  */
 import { app, BrowserWindow } from 'electron';
 import path from 'path';
@@ -14,15 +14,18 @@ if (require('electron-squirrel-startup')) {
 
 const createWindow = (): void => {
   const mainWindow = new BrowserWindow({
-    height: 600,
-    width: 800,
+    height: 800,
+    width: 400,
+    frame: false,
+    useContentSize: true,
+    resizable: false,
     webPreferences: {
       preload: path.join(__dirname, '../preload/index.js'),
     },
   });
 
   if (app.isPackaged) {
-    mainWindow.loadFile(path.join(__dirname, '../renderer/index.html'))
+    mainWindow.loadFile(path.join(__dirname, '../renderer/index.html'));
   } else {
     mainWindow.loadURL('http://localhost:3000');
   }

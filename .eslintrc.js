@@ -3,7 +3,7 @@
  * @Author: MADAO
  * @Date: 2023-03-27 15:14:22
  * @LastEditors: MADAO
- * @LastEditTime: 2023-03-27 15:25:31
+ * @LastEditTime: 2023-03-28 11:18:22
  */
 module.exports = {
   "env": {
@@ -29,7 +29,13 @@ module.exports = {
     "solid"
   ],
   "rules": {
-    "indent": ["error", 2],
-    "semi": ["error", "always"]
+    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "semi": ["error", "always"],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error"]
+  },
+  "globals": {
+    "Electron": "readonly",
+    "BridgeAPI": "readonly"
   }
 };

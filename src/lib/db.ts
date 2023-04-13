@@ -3,8 +3,22 @@
  * @Author: MADAO
  * @Date: 2023-03-30 11:22:33
  * @LastEditors: MADAO
- * @LastEditTime: 2023-03-30 11:24:36
+ * @LastEditTime: 2023-04-12 10:35:17
  */
-import PouchDB from 'pouchdb';
+import type { PlaylistItem } from '~/context/playlist';
 
-export const getDatabase = () => new PouchDB('mellow_musics_player_v1');
+import Dexie, { Table } from 'dexie';
+
+
+export class MellowMusicDB extends Dexie {
+  playlist!: Table<PlaylistItem & {id?: number}>;
+
+  constructor() {
+    super('MellowMusicDB');
+    this.version(1).stores({
+      playlist: '++id, name, icon, songs, createTimestamp'
+    });
+  }
+}
+
+export const db = new MellowMusicDB();

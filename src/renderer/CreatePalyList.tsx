@@ -47,12 +47,15 @@ export const CreatePalyList: Component = () => {
         payload: {
           action: ACTION_ADD_PLAYLIST,
           item: {
-            name: playlistName,
-            icon: selectedEmoji,
+            name: playlistName(),
+            icon: selectedEmoji(),
             songs: [],
+            createTimestamp: Date.now()
           },
         },
       });
+
+      BridgeAPI.closeWindow();
     }
   };
 

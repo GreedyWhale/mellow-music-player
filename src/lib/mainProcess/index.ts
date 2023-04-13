@@ -1,21 +1,38 @@
 /*
- * @Description: 创建窗口方法
+ * @Description: 用于主进程的工具函数
  * @Author: MADAO
- * @Date: 2023-03-28 10:52:54
+ * @Date: 2023-04-12 14:47:37
  * @LastEditors: MADAO
- * @LastEditTime: 2023-03-29 11:51:11
+ * @LastEditTime: 2023-04-12 14:48:40
  */
 import type { CreateBrowserWindowParams } from '~/types/global';
 
-import { BrowserWindow, app, ipcMain } from 'electron';
+import { BrowserWindow, app } from 'electron';
 import merge from 'lodash/merge';
 import path from 'path';
-
-import { EVENT_CREATE_BROWSER_WINDOW, EVENT_GET_WINDOW_ID } from '~/lib/constants';
+import fs from 'fs';
 
 type MainProcessCreateBrowserWindowParams = CreateBrowserWindowParams & {
   onBeforeLoad: (browserWindow: BrowserWindow) => void;
 }
+
+// 递归遍历目录
+export const traverseDir = (dirPath: string, filesArray: string[]) => {
+  // 检查当前路径是否是目录
+  if (fs.statSync(dirPath).isDirectory()) {
+    // 读取目录下的文件路径
+    const files = fs.readdirSync(dirPath);
+
+    // 遍历文件路径，对每个文件路径执行以上步骤，直到所有路径都为文件为止
+    files.forEach(file => {
+      const filePath = path.join(dirPath, file);
+      traverseDir(filePath, filesArray);
+    });
+  } else if (/\.(mp3|wav|ogg|flac|m4a)$/.test(dirPath)){
+    // 如果当前路径是文件，则把最终的文件路径存入数组中
+    filesArray.push(dirPath);
+  }
+};
 
 export const createBrowserWindow = (params: MainProcessCreateBrowserWindowParams) => {
   const defaultConfig: Electron.BrowserWindowConstructorOptions = {
@@ -36,23 +53,4 @@ export const createBrowserWindow = (params: MainProcessCreateBrowserWindowParams
   }
 
   return newWindow;
-};
-
-export const bindListeners = () => {
-  ipcMain.handle(EVENT_CREATE_BROWSER_WINDOW, async (event, params: CreateBrowserWindowParams) => {
-    if (event.sender.isDestroyed()) {
-      return;
-    }
-
-    return new Promise(resolve => {
-      createBrowserWindow({
-        ...params,
-        onBeforeLoad: (browserWindow) => {
-          browserWindow.webContents.once('did-finish-load', () => resolve(browserWindow.webContents.id));
-        },
-      });
-    });
-  });
-
-  ipcMain.handle(EVENT_GET_WINDOW_ID, event => event.sender.id);
 };

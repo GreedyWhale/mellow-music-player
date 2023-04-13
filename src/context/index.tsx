@@ -1,32 +1,22 @@
 import type { Component, JSXElement } from 'solid-js';
-import type { Playlist, AddPlaylistItem, RemovePlaylistItem, ReplacePlaylistItem } from './playlist';
+import type { ContextPlaylist } from './playlist';
 
 import { createContext, useContext } from 'solid-js';
 
-import { usePlaylist } from './playlist';
+import { usePlaylist, initialPlaylist } from './playlist';
 
 type MellowMusicPlayerContextValue = {
-  playlistInfo: {
-    playlist: Playlist;
-    addPlaylistItem: AddPlaylistItem;
-    removePlaylistItem: RemovePlaylistItem;
-    replacePlaylistItem: ReplacePlaylistItem;
-  }
+  playlist: ContextPlaylist;
 };
 
 const MellowMusicPlayerContext = createContext<MellowMusicPlayerContextValue>({
-  playlistInfo: {
-    playlist: [],
-    addPlaylistItem: () => console.log('addPlaylistItem'),
-    removePlaylistItem: () => console.log('removePlaylistItem'),
-    replacePlaylistItem: () => console.log('replacePlaylistItem'),
-  },
+  playlist: initialPlaylist,
 });
 
 export const MellowMusicPlayerProvider: Component<{children?: JSXElement}> = props => {
   const playlist = usePlaylist();
   const store: MellowMusicPlayerContextValue = {
-    playlistInfo: playlist,
+    playlist,
   };
 
   return (

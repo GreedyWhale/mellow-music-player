@@ -1,5 +1,7 @@
 import type { Component, JSXElement } from "solid-js";
 
+import { Line } from './Line';
+
 type TitleBarProps = {
   title: string;
   description?: string;
@@ -18,7 +20,7 @@ export const TitleBar: Component<TitleBarProps> = (props) => {
         </div>
         {props.extra && props.extra}
       </div>
-      <div class="h-[2px] w-full bg-[#272B31] shadow-[0_-2px_5px_#33393D]" />
+      <Line />
     </header>
   );
 };

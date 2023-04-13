@@ -3,7 +3,7 @@
  * @Author: MADAO
  * @Date: 2023-03-03 14:37:31
  * @LastEditors: MADAO
- * @LastEditTime: 2023-03-25 15:46:07
+ * @LastEditTime: 2023-04-13 15:32:41
  */
 const { spawn } = require('child_process');
 const { createServer, build, createLogger } = require('vite');
@@ -60,6 +60,6 @@ const main = async () => {
       }
     ]
   });
-}
+};
 
 main();

@@ -5,44 +5,59 @@ import clsx from "clsx";
 
 import addIcon from "~/assets/images/add.svg";
 import editIcon from "~/assets/images/edit.svg";
+import musicAddIcon from "~/assets/images/music_add.svg";
+import musicPlayIcon from "~/assets/images/music_play.svg";
+import backIcon from "~/assets/images/back.svg";
 
 import { twMerge } from "~/lib/twMerge";
+import { showEmoji } from "~/lib/emoji";
+
+type ButtonIcons = "add" | "edit" | "musicAdd" | "musicPlay" | "back";
 
 type ButtonProps = {
-  icon?: "add" | "edit";
+  icon?: ButtonIcons;
+  emoji?: string[];
   onClick?: (event: MouseEvent) => void;
   children?: JSXElement;
+  classNames?: string;
 };
 
 export const Button: Component<ButtonProps> = (props) => {
   const [active, setActive] = createSignal(false);
 
   const memoizedIcon = createMemo(() => {
-    switch (props.icon) {
-      case "add":
-        return addIcon;
-      case "edit":
-        return editIcon;
-      default:
-        return "";
+    if (!props.icon) {
+      return;
     }
+
+    const iconMap: Record<ButtonIcons, string> = {
+      add: addIcon,
+      edit: editIcon,
+      musicAdd: musicAddIcon,
+      musicPlay: musicPlayIcon,
+      back: backIcon,
+    };
+
+    return iconMap[props.icon];
   });
 
   return (
     <div
-      class="relative z-10"
+      class={twMerge(clsx("relative z-10 h-[40px] w-[40px]", props.classNames))}
       onMouseDown={() => setActive(true)}
       onMouseUp={() => setActive(false)}
     >
       <button
-        class="z-[1] flex h-[40px] w-[40px] items-center justify-center rounded-full bg-gradient-radial-tl from-[#2E3238] to-[#1D1F22]"
+        class="z-[1] flex h-full w-full items-center justify-center rounded-full bg-gradient-radial-tl from-[#2E3238] to-[#1D1F22]"
         onClick={(event) => props?.onClick?.(event)}
       >
-        {memoizedIcon ? (
+        {memoizedIcon() && (
           <img src={memoizedIcon()} alt="button icon" class="h-5 w-5" />
-        ) : (
-          props.children
         )}
+
+        {props.emoji && <span>{showEmoji(props.emoji)}</span>}
+
+        {props.children}
       </button>
       <div
         class={twMerge(
